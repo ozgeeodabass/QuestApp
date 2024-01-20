@@ -21,9 +21,9 @@ public class PostManager implements PostService {
     }
 
     @Override
-    public List<Post> findAllPosts(Optional<User> user) {
-        if(user.isPresent())
-            return repository.findAllByUserId(user.get().getId());
+    public List<Post> findAllPosts(Optional<Long> userId) {
+        if(userId.isPresent())
+            return repository.findAllByUserId(userId.get());
         else
             return repository.findAll();
     }

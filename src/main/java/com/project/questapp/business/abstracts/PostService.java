@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface PostService {
 
-    List<Post> findAllPosts(Optional<User> user);
+    List<Post> findAllPosts(Optional<Long> userId);
     List<Post> findAllByUserId(Long userId);
     List<Post> findAllByTitleContaining(String text);
     List<Post> findAllByTitle(String title);

@@ -8,6 +8,8 @@ import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.List;
+
 @Entity
 @Table(name = "posts")
 @Data
@@ -22,6 +24,15 @@ public class Post implements IEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     User user;
+
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    List<Comment> comments;
+
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    List<Like> likes;
+
 
     @Column(name = "title")
     String title;
