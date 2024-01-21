@@ -20,19 +20,9 @@ public class LikeControllers {
     }
 
     @GetMapping("/findall")
-    List<Like> findAllLikes(Optional<Long> userId, Optional<Long> postId){
+    List<Like> findAllLikes(@RequestParam Optional<Long> userId,@RequestParam  Optional<Long> postId){
         return this.service.findAllLikes(userId,postId);
     }
-
-    @GetMapping("/findallbyuserid/{id}")
-    List<Like> findAllByUserId(@PathVariable Long userId){
-        return this.service.findAllByUserId(userId);
-    }
-    @GetMapping("/findallbypostid/{id}")
-    List<Like> findAllByPostId(@PathVariable Long postId){
-        return this.service.findAllByPostId(postId);
-    }
-
     @PostMapping("/create")
     void add(@RequestBody Like like){
         this.service.add(like);

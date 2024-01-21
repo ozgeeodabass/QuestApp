@@ -21,13 +21,8 @@ public class PostControllers {
     }
 
     @GetMapping("/getall")
-    public List<Post> findAllPosts(Optional<Long> userId) {
+    public List<Post> findAllPosts(@RequestParam  Optional<Long> userId) {
       return this.service.findAllPosts(userId);
-    }
-
-    @GetMapping("/getallbyuserid/{userId}")
-    public List<Post> findAllByUserId(@PathVariable Long userId) {
-        return this.service.findAllByUserId(userId);
     }
 
     @GetMapping("/getallbytitlecontaining/{text}")
