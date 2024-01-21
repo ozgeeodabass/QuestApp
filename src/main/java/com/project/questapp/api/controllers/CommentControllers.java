@@ -2,6 +2,7 @@ package com.project.questapp.api.controllers;
 
 import com.project.questapp.business.abstracts.CommentService;
 import com.project.questapp.entities.Comment;
+import com.project.questapp.requests.CommentCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class CommentControllers {
 
 
     @PostMapping("/create")
-    Comment add(@RequestBody Comment comment){
+    Comment add(@RequestBody CommentCreateRequest comment){
         return this.service.add(comment);
     }
 

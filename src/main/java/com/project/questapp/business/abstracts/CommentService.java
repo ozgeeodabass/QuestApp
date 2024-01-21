@@ -2,6 +2,7 @@ package com.project.questapp.business.abstracts;
 
 import com.project.questapp.entities.Comment;
 import com.project.questapp.entities.User;
+import com.project.questapp.requests.CommentCreateRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +12,7 @@ public interface CommentService {
     List<Comment> findAllByPostId(Long postId);
     List<Comment> findAllByUserId(Long userId);
 
-    Comment add(Comment comment);
+    Comment add(CommentCreateRequest comment);
 
     void delete(long id);
 

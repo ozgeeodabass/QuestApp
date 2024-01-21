@@ -1,10 +1,14 @@
 package com.project.questapp.business.concretes;
 
 import com.project.questapp.business.abstracts.CommentService;
+import com.project.questapp.business.abstracts.PostService;
+import com.project.questapp.business.abstracts.UserService;
 import com.project.questapp.dataAccess.CommentRepository;
 import com.project.questapp.entities.Comment;
 import com.project.questapp.entities.Like;
+import com.project.questapp.entities.Post;
 import com.project.questapp.entities.User;
+import com.project.questapp.requests.CommentCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +19,14 @@ import java.util.Optional;
 public class CommentManager implements CommentService {
 
     private CommentRepository repository;
+    private UserService userService;
+    private PostService postService;
 
     @Autowired
-    public CommentManager(CommentRepository repository) {
+    public CommentManager(CommentRepository repository, UserService userService, PostService postService) {
         this.repository = repository;
+        this.userService=userService;
+        this.postService=postService;
     }
 
     @Override
@@ -44,8 +52,17 @@ public class CommentManager implements CommentService {
     }
 
     @Override
-    public Comment add(Comment comment) {
-        return repository.save(comment);
+    public Comment add(CommentCreateRequest commentRequest) {
+        User user = userService.getByUserId(commentRequest.getUserId());
+        Post post = postService.getByPostId(commentRequest.getPostId());
+        if(user==null||post==null)
+            return null;
+        Comment toSave = new Comment();
+        toSave.setId(commentRequest.getId());
+        toSave.setText(commentRequest.getText());
+        toSave.setUser(user);
+        toSave.setPost(post);
+        return repository.save(toSave);
     }
 
     @Override
