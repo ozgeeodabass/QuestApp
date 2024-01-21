@@ -25,13 +25,13 @@ public class Post implements IEntity {
     @JsonIgnore
     User user;
 
-    @OneToMany(mappedBy = "post")
-    @JsonIgnore
-    List<Comment> comments;
+   // @OneToMany(mappedBy = "post")
+    //@JsonIgnore
+   // List<Comment> comments;
 
-    @OneToMany(mappedBy = "post")
-    @JsonIgnore
-    List<Like> likes;
+    //@OneToMany(mappedBy = "post")
+   // @JsonIgnore
+   // List<Like> likes;
 
 
     @Column(name = "title")

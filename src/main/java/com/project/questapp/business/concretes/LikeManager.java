@@ -5,10 +5,12 @@ import com.project.questapp.dataAccess.LikeRepository;
 import com.project.questapp.entities.Like;
 import com.project.questapp.entities.Post;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class LikeManager implements LikeService {
 
     private LikeRepository repository;

@@ -1,9 +1,11 @@
 package com.project.questapp.business.concretes;
 
 import com.project.questapp.business.abstracts.PostService;
+import com.project.questapp.business.abstracts.UserService;
 import com.project.questapp.dataAccess.PostRepository;
 import com.project.questapp.entities.Post;
 import com.project.questapp.entities.User;
+import com.project.questapp.requests.PostCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,13 @@ import java.util.Optional;
 public class PostManager implements PostService {
 
     private PostRepository repository;
+    private UserService userService;
 
     @Autowired
-    public PostManager(PostRepository repository) {
+    public PostManager(PostRepository repository,UserService userService) {
+
         this.repository = repository;
+        this.userService=userService;
     }
 
     @Override
@@ -44,8 +49,17 @@ public class PostManager implements PostService {
     }
 
     @Override
-    public void add(Post post) {
-        repository.save(post);
+    public Post add(PostCreateRequest post) {
+        User user = userService.getByUserId(post.getUserId());
+        if(user==null)
+            return null;
+        Post toSave = new Post();
+        toSave.setId(post.getId());
+        toSave.setText(post.getText());
+        toSave.setTitle(post.getTitle());
+        toSave.setUser(user);
+        return repository.save(toSave);
+
     }
 
     @Override
