@@ -20,29 +20,29 @@ public class CommentControllers {
         this.service = service;
     }
 
-    @GetMapping("/findall")
-    List<Comment> findAll(@RequestParam Optional<Long> postId,@RequestParam Optional<Long> userId){
+    @GetMapping("/getall")
+    public List<Comment> findAll(@RequestParam Optional<Long> postId,@RequestParam Optional<Long> userId){
         return this.service.findAll(userId,postId);
     }
 
 
     @PostMapping("/create")
-    Comment add(@RequestBody CommentCreateRequest comment){
+    public Comment add(@RequestBody CommentCreateRequest comment){
         return this.service.add(comment);
     }
 
     @DeleteMapping("/delete/{id}")
-    void delete(@PathVariable long id){
+    public void delete(@PathVariable long id){
         this.service.delete(id);
     }
 
     @PutMapping("/update/{id}")
-    Comment update(@PathVariable long id,@RequestBody Comment comment){
+    public Comment update(@PathVariable long id,@RequestBody Comment comment){
         return this.service.update(id,comment);
     }
 
     @GetMapping("/findById/{id}")
-    Comment findById(@PathVariable long id){
+    public Comment findById(@PathVariable long id){
         return this.service.findById(id);
     }
 }

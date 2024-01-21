@@ -55,14 +55,15 @@ public class CommentManager implements CommentService {
     public Comment add(CommentCreateRequest commentRequest) {
         User user = userService.getByUserId(commentRequest.getUserId());
         Post post = postService.getByPostId(commentRequest.getPostId());
-        if(user==null||post==null)
+        if(user!=null&&post!=null){
+            Comment toSave = new Comment();
+            toSave.setId(commentRequest.getId());
+            toSave.setText(commentRequest.getText());
+            toSave.setUser(user);
+            toSave.setPost(post);
+            return repository.save(toSave);
+        }else
             return null;
-        Comment toSave = new Comment();
-        toSave.setId(commentRequest.getId());
-        toSave.setText(commentRequest.getText());
-        toSave.setUser(user);
-        toSave.setPost(post);
-        return repository.save(toSave);
     }
 
     @Override
