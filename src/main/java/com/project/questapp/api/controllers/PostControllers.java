@@ -2,6 +2,7 @@ package com.project.questapp.api.controllers;
 
 import com.project.questapp.business.abstracts.PostService;
 import com.project.questapp.entities.Post;
+import com.project.questapp.reponses.PostResponse;
 import com.project.questapp.requests.PostCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +22,17 @@ public class PostControllers {
     }
 
     @GetMapping("/getall")
-    public List<Post> findAllPosts(@RequestParam Optional<Long> userId) {
+    public List<PostResponse> findAllPosts(@RequestParam Optional<Long> userId) {
       return this.service.findAllPosts(userId);
     }
 
     @GetMapping("/getallbytitlecontaining/{text}")
-    public List<Post> findAllByTitleContaining(@PathVariable String text) {
+    public List<PostResponse> findAllByTitleContaining(@PathVariable String text) {
         return this.service.findAllByTitleContaining(text);
     }
 
     @GetMapping("/getallbytitle/{title}")
-    public List<Post> findAllByTitle(@PathVariable String title) {
+    public List<PostResponse> findAllByTitle(@PathVariable String title) {
 
         return this.service.findAllByTitle(title);
     }

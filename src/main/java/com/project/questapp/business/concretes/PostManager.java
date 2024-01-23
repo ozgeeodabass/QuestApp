@@ -5,12 +5,14 @@ import com.project.questapp.business.abstracts.UserService;
 import com.project.questapp.dataAccess.PostRepository;
 import com.project.questapp.entities.Post;
 import com.project.questapp.entities.User;
+import com.project.questapp.reponses.PostResponse;
 import com.project.questapp.requests.PostCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostManager implements PostService {
@@ -26,26 +28,30 @@ public class PostManager implements PostService {
     }
 
     @Override
-    public List<Post> findAllPosts(Optional<Long> userId) {
+    public List<PostResponse> findAllPosts(Optional<Long> userId) {
+        List<Post> list;
         if(userId.isPresent())
-            return repository.findAllByUserId(userId.get());
-        else
-            return repository.findAll();
+            list= repository.findAllByUserId(userId.get());
+        list= repository.findAll();
+        return list.stream().map(p->new PostResponse(p)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Post> findAllByUserId(Long userId) {
-        return repository.findAllByUserId(userId);
+    public List<PostResponse> findAllByUserId(Long userId) {
+        List<Post> list = repository.findAllByUserId(userId);
+        return list.stream().map(p->new PostResponse(p)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Post> findAllByTitleContaining(String text) {
-        return repository.findAllByTitleContaining(text);
+    public List<PostResponse> findAllByTitleContaining(String text) {
+        List<Post> list = repository.findAllByTitleContaining(text);
+        return list.stream().map(p->new PostResponse(p)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Post> findAllByTitle(String title) {
-        return repository.findAllByTitle(title);
+    public List<PostResponse> findAllByTitle(String title) {
+        List<Post> list =repository.findAllByTitle(title);
+        return list.stream().map(p->new PostResponse(p)).collect(Collectors.toList());
     }
 
     @Override
