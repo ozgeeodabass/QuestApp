@@ -19,20 +19,10 @@ public class Post implements IEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     User user;
-
-   // @OneToMany(mappedBy = "post")
-    //@JsonIgnore
-   // List<Comment> comments;
-
-    //@OneToMany(mappedBy = "post")
-   // @JsonIgnore
-   // List<Like> likes;
-
 
     @Column(name = "title")
     String title;
