@@ -13,7 +13,7 @@ import java.util.List;
 public class User implements IEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String userName;
     String password;
