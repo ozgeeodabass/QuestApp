@@ -4,11 +4,14 @@ import com.project.questapp.business.abstracts.LikeService;
 import com.project.questapp.dataAccess.LikeRepository;
 import com.project.questapp.entities.Like;
 import com.project.questapp.entities.Post;
+import com.project.questapp.reponses.LikeResponse;
+import com.project.questapp.reponses.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LikeManager implements LikeService {
@@ -21,26 +24,30 @@ public class LikeManager implements LikeService {
     }
 
     @Override
-    public List<Like> findAllLikes(Optional<Long> userId, Optional<Long> postId) {
+    public List<LikeResponse> findAllLikes(Optional<Long> userId, Optional<Long> postId) {
+        List<Like> list;
         if(userId.isPresent())
-            return repository.findAllByUserId(userId.get());
+            list= repository.findAllByUserId(userId.get());
         else if(postId.isPresent())
-            return repository.findAllByPostId(postId.get());
+            list= repository.findAllByPostId(postId.get());
         else if(postId.isPresent()&&userId.isPresent())
-            return repository.findAllByUserIdAndPostId(userId.get(),postId.get());
+            list= repository.findAllByUserIdAndPostId(userId.get(),postId.get());
         else
-            return repository.findAll();
+            list= repository.findAll();
 
+        return list.stream().map(l->new LikeResponse(l)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Like> findAllByUserId(Long userId) {
-        return repository.findAllByUserId(userId);
+    public List<LikeResponse> findAllByUserId(Long userId) {
+        List<Like> likes = repository.findAllByUserId(userId);
+        return likes.stream().map(l->new LikeResponse(l)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Like> findAllByPostId(Long postId) {
-        return repository.findAllByPostId(postId);
+    public List<LikeResponse> findAllByPostId(Long postId) {
+        List<Like> likes = repository.findAllByPostId(postId);
+        return likes.stream().map(l->new LikeResponse(l)).collect(Collectors.toList());
     }
 
     @Override

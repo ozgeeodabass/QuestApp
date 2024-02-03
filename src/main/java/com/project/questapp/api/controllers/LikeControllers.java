@@ -2,6 +2,7 @@ package com.project.questapp.api.controllers;
 
 import com.project.questapp.business.abstracts.LikeService;
 import com.project.questapp.entities.Like;
+import com.project.questapp.reponses.LikeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class LikeControllers {
     }
 
     @GetMapping("/findall")
-    List<Like> findAllLikes(@RequestParam Optional<Long> userId,@RequestParam  Optional<Long> postId){
+    List<LikeResponse> findAllLikes(@RequestParam Optional<Long> userId, @RequestParam  Optional<Long> postId){
         return this.service.findAllLikes(userId,postId);
     }
     @PostMapping("/create")
