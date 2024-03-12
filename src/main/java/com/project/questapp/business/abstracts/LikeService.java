@@ -15,7 +15,7 @@ public interface LikeService  {
     List<LikeResponse> findAllByPostId(Long postId);
     Like add(LikeCreateRequest like);
 
-    void delete(long id);
+    void deleteById(Long id);
 
-    Like getByLikeId(long id);
+    Like getByLikeId(Long id);
 }

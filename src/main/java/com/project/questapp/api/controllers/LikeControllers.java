@@ -31,8 +31,8 @@ public class LikeControllers {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable long id){
-        this.delete(id);
+    public void deleteById(@PathVariable Long id){
+        this.service.deleteById(id);
     }
 
     @GetMapping("/getByLikeId/{id}")

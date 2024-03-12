@@ -73,13 +73,12 @@ public class LikeManager implements LikeService {
     }
 
     @Override
-    public void delete(long id) {
-        Like likeFound = repository.findById(id).get();
-        repository.delete(likeFound);
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 
     @Override
-    public Like getByLikeId(long id) {
+    public Like getByLikeId(Long id) {
         return repository.findById(id).orElse(null);
     }
 }
