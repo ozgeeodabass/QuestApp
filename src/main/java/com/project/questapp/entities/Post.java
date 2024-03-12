@@ -30,4 +30,8 @@ public class Post implements IEntity {
     @Lob
     @Column(columnDefinition = "text", name = "text")
     String text;
+
+//    @OneToMany(mappedBy = "post")
+//    @JsonIgnore
+//    List<Like> likes;
 }

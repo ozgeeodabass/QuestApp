@@ -26,11 +26,11 @@ public class PostManager implements PostService {
 
     @Autowired
     public PostManager(PostRepository repository,UserService userService) {
-
         this.repository = repository;
         this.userService=userService;
     }
 
+    @Autowired
     public void setLikeService(LikeService likeService){
         this.likeService=likeService;
     }
@@ -42,7 +42,7 @@ public class PostManager implements PostService {
             list= repository.findAllByUserId(userId.get());
         list= repository.findAll();
         return list.stream().map(p->{
-            List<LikeResponse> likes = likeService.findAllLikes(null,Optional.of(p.getId()));
+            List<LikeResponse> likes = likeService.findAllLikes(Optional.ofNullable(null),Optional.of(p.getId()));
             return new PostResponse(p,likes);}).collect(Collectors.toList());
     }
 
