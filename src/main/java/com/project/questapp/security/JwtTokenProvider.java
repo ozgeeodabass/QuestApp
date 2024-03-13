@@ -1,6 +1,7 @@
 package com.project.questapp.security;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -24,7 +25,7 @@ public class JwtTokenProvider {
         Date expireDate = new Date(new Date().getTime()+EXPIRES_IN);
         return Jwts.builder().subject(Long.toString(userDetails.getId()))
                 .issuedAt(new Date()).expiration(expireDate)
-                .signWith(SignatureAlgorithm.HS512,APP_SECRET).compact();
+                .signWith(SignatureAlgorithm.HS512, Keys.secretKeyFor(SignatureAlgorithm.HS512)).compact();
     }
 
     Long getUserIdFromJwt(String token){
