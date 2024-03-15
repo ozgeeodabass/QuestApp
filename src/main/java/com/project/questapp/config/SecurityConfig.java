@@ -72,8 +72,8 @@ public class SecurityConfig {
                 .exceptionHandling(exp->exp.authenticationEntryPoint(handler))
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers( "/api/posts").permitAll()
-                        .requestMatchers( "/api/comments").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/comments/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest()
                         .authenticated()
